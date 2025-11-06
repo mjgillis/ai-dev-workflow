@@ -28,38 +28,49 @@ Located in [`/reference`](reference/):
 
 ## Quick Start
 
-### The Complete Flow
+### Installation
 
-```
-1. PRD Creation
-   "Create a PRD for [feature] using the prd-creation-workflow"
+```bash
+# Copy the .claude folder to your project
+cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
 
-2. TDD Creation
-   "Create a TDD based on this PRD using the tdd-creation-workflow"
-
-3. Task Breakdown
-   "Break down this PRD and TDD into tickets using the task-breakdown-workflow"
-
-4. Implementation (per ticket)
-   "Implement Linear ticket [ID] following the linear-ticket-workflow"
+# That's it! Claude Code will automatically load the instructions
 ```
 
-### Example
+### Workflow Commands
+
+Simply tell Claude which workflow to use:
+
+```bash
+# 1. Create PRD
+"Create a PRD for [feature] using the prd-creation-workflow"
+
+# 2. Create TDD
+"Create a TDD for [feature] using the tdd-creation-workflow"
+
+# 3. Break down into tickets
+"Break down this PRD and TDD using the task-breakdown-workflow"
+
+# 4. Implement a ticket
+"Implement ticket [TICKET-ID] using the linear-ticket-workflow"
+```
+
+### Complete Example
 
 ```
-You: "I want to build an API usage dashboard. Let's create a PRD using the prd-creation-workflow."
+You: "I want to build an API usage dashboard using the prd-creation-workflow"
 
 Claude: [Guides you through PRD creation with questions]
 
-You: "Great! Now create a TDD using the tdd-creation-workflow."
+You: "Now create a TDD using the tdd-creation-workflow"
 
 Claude: [Helps design technical architecture]
 
-You: "Break this down into Linear tickets using the task-breakdown-workflow."
+You: "Break this down using the task-breakdown-workflow"
 
-Claude: [Creates sprint plan with tickets]
+Claude: [Creates sprint plan with Linear tickets]
 
-You: "Implement ticket PROJ-1 following the linear-ticket-workflow."
+You: "Implement ticket PROJ-1 using the linear-ticket-workflow"
 
 Claude: [Implements with TDD approach]
 ```
@@ -68,29 +79,46 @@ Claude: [Implements with TDD approach]
 
 ## Using in Your Projects
 
-### Option 1: Copy to `.claude` Directory
+### Simple Setup
 
-```bash
-# Copy workflows and templates to your project
-cp -r workflows /path/to/your/project/.claude/
-cp -r reference /path/to/your/project/.claude/
-```
+1. **Copy the `.claude` folder to your project:**
+   ```bash
+   cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
+   ```
 
-### Option 2: Create Slash Commands
+2. **Start using workflows:**
+   ```bash
+   # Just say "using the [workflow-name]" in your prompts
+   "Create a PRD for user authentication using the prd-creation-workflow"
+   ```
 
-Create `.claude/commands/` with shortcuts:
+3. **Customize (optional):**
+   ```bash
+   # Edit .claude/instructions.md to add project-specific rules
+   ```
 
-**`.claude/commands/prd.md`:**
-```
-Create a PRD using .claude/workflows/prd-creation-workflow.md
-```
+### That's It!
 
-**`.claude/commands/tdd.md`:**
-```
-Create a TDD using .claude/workflows/tdd-creation-workflow.md
-```
+Claude Code automatically:
+- Loads `.claude/instructions.md` (core principles + workflow commands)
+- Reads workflow files on-demand when you mention them
+- Keeps context clean (~2.5K tokens permanent vs ~50K if all workflows loaded)
 
-Then simply use: `/prd`, `/tdd`, etc.
+---
+
+## Command Reference
+
+Quick reference for workflow commands:
+
+| When You Want To... | Say This to Claude |
+|---------------------|-------------------|
+| Define requirements | `"Create a PRD for [feature] using the prd-creation-workflow"` |
+| Design implementation | `"Create a TDD for [feature] using the tdd-creation-workflow"` |
+| Break into tickets | `"Break down this PRD and TDD using the task-breakdown-workflow"` |
+| Implement a ticket | `"Implement ticket [TICKET-ID] using the linear-ticket-workflow"` |
+| See quick reference | `"Show me the quick reference"` (reads `reference/quick-reference.md`) |
+
+**Pattern:** Just say **"using the [workflow-name]"** and Claude will load and follow it.
 
 ---
 
@@ -192,6 +220,63 @@ Then simply use: `/prd`, `/tdd`, etc.
 ---
 
 ## Decision Tree
+
+### Visual Workflow Selection
+
+```
+                        ┌─────────────────────┐
+                        │   I have an idea!   │
+                        │  or feature request │
+                        └──────────┬──────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │ Do I have a PRD with │
+                        │ requirements & user  │
+                        │      stories?        │
+                        └──────────┬───────────┘
+                                   │
+                    ┌──────────────┴──────────────┐
+                    │ NO                         │ YES
+                    ▼                            ▼
+        ┌─────────────────────┐      ┌─────────────────────┐
+        │  PRD Creation        │      │ Do I have a TDD     │
+        │     Workflow         │      │ with technical      │
+        │                      │      │     design?         │
+        │ Define WHAT & WHY    │      └──────────┬──────────┘
+        └─────────────────────┘                  │
+                                  ┌──────────────┴──────────────┐
+                                  │ NO                         │ YES
+                                  ▼                            ▼
+                      ┌─────────────────────┐      ┌─────────────────────┐
+                      │  TDD Creation        │      │ Do I have tickets   │
+                      │     Workflow         │      │   in Linear with    │
+                      │                      │      │   breakdowns?       │
+                      │   Design HOW         │      └──────────┬──────────┘
+                      └─────────────────────┘                  │
+                                              ┌─────────────────┴──────────────┐
+                                              │ NO                            │ YES
+                                              ▼                               ▼
+                                  ┌─────────────────────┐         ┌─────────────────────┐
+                                  │  Task Breakdown      │         │   Linear Ticket     │
+                                  │     Workflow         │         │ Implementation      │
+                                  │                      │         │     Workflow        │
+                                  │  Create TICKETS      │         │                     │
+                                  └─────────────────────┘         │   Build FEATURE     │
+                                                                  └─────────────────────┘
+
+```
+
+### Quick Decision Guide
+
+| I have... | I need... | Use this workflow |
+|-----------|-----------|-------------------|
+| Just an idea | Requirements & goals | [prd-creation-workflow](workflows/prd-creation-workflow.md) |
+| PRD | Technical design | [tdd-creation-workflow](workflows/tdd-creation-workflow.md) |
+| PRD + TDD | Actionable tickets | [task-breakdown-workflow](workflows/task-breakdown-workflow.md) |
+| A Linear ticket | To implement it | [linear-ticket-workflow](workflows/linear-ticket-workflow.md) |
+
+### Simple Text Version
 
 ```
 Do you have requirements?
@@ -354,17 +439,43 @@ To suggest changes:
 
 ## Getting Started
 
-1. **Read:** Start with [product-development-workflow.md](workflows/product-development-workflow.md)
-2. **Try:** Pick a small feature and walk through all workflows
-3. **Refine:** Customize templates for your needs
-4. **Scale:** Use on larger projects
+### First Time Setup
 
-**First prompt to Claude:**
+1. **Copy .claude folder to your project:**
+   ```bash
+   cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
+   ```
 
+2. **Open your project in Claude Code**
+
+3. **Start with a simple prompt:**
+   ```
+   "I want to build [your feature] using the prd-creation-workflow"
+   ```
+
+### Your First Feature
+
+Try this complete flow on a small feature:
+
+```bash
+# Step 1: Define requirements
+"Create a PRD for [simple feature] using the prd-creation-workflow"
+
+# Step 2: Design solution
+"Create a TDD for this feature using the tdd-creation-workflow"
+
+# Step 3: Create tickets
+"Break this down using the task-breakdown-workflow"
+
+# Step 4: Implement
+"Implement ticket [TICKET-ID] using the linear-ticket-workflow"
 ```
-I want to build [your feature]. Let's follow the product-development-workflow
-from .claude/workflows/product-development-workflow.md
-```
+
+### Next Steps
+
+- Read [product-development-workflow.md](workflows/product-development-workflow.md) for full details
+- Customize `.claude/instructions.md` with your project-specific rules
+- See [quick-reference.md](reference/quick-reference.md) for cheat sheet
 
 ---
 

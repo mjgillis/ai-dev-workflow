@@ -13,6 +13,20 @@ This workflow ensures that every Linear ticket is implemented consistently with:
 - ✅ Complete acceptance criteria validation
 - ✅ Documentation updates
 - ✅ Definition of Done checklist
+- ✅ Linear ticket status tracking
+
+### Linear Ticket Status Flow
+
+```
+Todo → In Progress → Completed
+  ↓         ↓            ↓
+Start    Working     PR Merged
+Work
+```
+
+**Status Updates:**
+- **In Progress:** Set when beginning implementation (Phase 1)
+- **Completed:** Set after PR is approved and merged (Phase 7)
 
 ---
 
@@ -37,7 +51,7 @@ Or for a specific ticket:
 **Claude should:**
 
 - Ask for the Linear ticket ID (e.g., `ACME-123`)
-- Fetch ticket details using Linear API or ask user to paste ticket description
+- Fetch ticket details using Linear MCP or ask user to paste ticket description
 - Display:
   - Title
   - User story (As a... I want... So that...)
@@ -94,6 +108,21 @@ Implementation Plan for ACME-5:
 5. Mark acceptance criteria as complete
 
 Proceed with this plan? [yes/no]
+```
+
+#### Step 1.4: Update Linear Ticket Status to "In Progress"
+
+**Claude should:**
+
+- Mark the Linear ticket as "In Progress" to signal work has started
+- This provides visibility to the team
+
+**Example:**
+
+```
+Marking ACME-5 as "In Progress" in Linear...
+
+Ticket status updated: Todo → In Progress
 ```
 
 ---
@@ -465,17 +494,17 @@ EOF
 - `fix(scope): description (TICKET-ID)`
 - `docs(scope): description (TICKET-ID)`
 
-#### Step 7.5: Update Linear Ticket & Link PR
+#### Step 7.5: Link PR to Linear Ticket
 
 **Claude should:**
 
-- Mark ticket as "In Review" (not "Complete" - wait for PR approval)
-- Add comment with PR link and implementation details
+- Add comment to Linear ticket with PR link and implementation details
+- Keep ticket as "In Progress" until PR is merged
 
 **Example Linear Comment:**
 
 ```
-✅ Implementation complete - Ready for review
+✅ Implementation complete - PR created
 
 **PR:** https://github.com/org/repo/pull/123
 **Branch:** feature/ACME-5-implement-request-asset
@@ -488,7 +517,7 @@ All acceptance criteria met:
 - ✅ Unit tests passing (47/47 passing)
 - ✅ Documentation updated
 
-Ready for code review.
+Awaiting PR review and merge.
 ```
 
 **Linear Integration:**
@@ -498,51 +527,28 @@ Linear automatically detects GitHub PR links when:
 - PR description includes `Closes ACME-5` or `Fixes ACME-5`
 - This creates a bidirectional link (Linear → GitHub, GitHub → Linear)
 
-**After PR is approved and merged:**
-- Update Linear ticket to "Done"
-- Linear may automatically mark as Done if PR includes `Closes ACME-5`
+#### Step 7.6: Mark Ticket Complete After PR Merge
 
----
+**After PR is approved and merged, Claude should:**
 
-### **Phase 8: Create GitHub PR & Link to Linear**
+- Update Linear ticket status to "Completed"
+- Add final comment confirming completion
 
-**Required for visibility and code review workflow.**
+**Status Transition:** In Progress → Completed
 
-Claude will create a GitHub PR and link it to the Linear ticket:
+**Example:**
 
-**PR Template:**
-
-```markdown
-## Description
-Implements request_asset() method for initiating asset generation requests.
-
-## Linear Ticket
-Closes ACME-5
-
-## Changes
-- Added `request_asset()` method to AssetClient
-- Implemented error handling for 400, 401, 409 responses
-- Added unit tests with mocked HTTP responses
-- Updated docstrings and README
-
-## Testing
-- ✅ All tests passing (pytest)
-- ✅ Code coverage: 95%
-- ✅ No linter warnings
-- ✅ Type checking passes
-
-## Acceptance Criteria
-- [x] POST to /api/v1/assets with format and parameters
-- [x] Returns dict with asset_id, status, created_at on 202
-- [x] Handles 409 (duplicate) - returns existing asset
-- [x] Unit tests cover all response codes
-
-## Definition of Done
-- [x] Code reviewed
-- [x] Tests passing with >80% coverage
-- [x] No linter warnings
-- [x] Documentation updated
 ```
+Marking ACME-5 as "Completed" in Linear...
+
+✅ PR merged to main
+✅ All acceptance criteria met
+✅ Ticket complete
+
+Ticket status updated: In Progress → Completed
+```
+
+**Note:** Linear may automatically mark as Completed if PR includes `Closes ACME-5`
 
 ---
 
@@ -695,17 +701,17 @@ Draft a Linear comment for ACME-5 summarizing the implementation
 
 ---
 
-## Integration with Linear API
+## Integration with Linear MCP
 
-You can enhance this workflow by creating a script that:
+You can enhance this workflow by using Linear MCP (Model Context Protocol):
 
-- Fetches ticket details from Linear API
+- Fetches ticket details from Linear
 - Updates ticket status automatically
 - Posts comments with implementation progress
 
-**Example script:** `.claude/scripts/linear_helper.py`
+**Linear MCP** provides direct integration with Linear through the MCP protocol.
 
-This would allow Claude to:
+This allows Claude to:
 
 ```python
 # Fetch ticket
@@ -728,6 +734,7 @@ For every Linear ticket, Claude should:
    - [ ] Fetch ticket details
    - [ ] Read TDD references
    - [ ] Create implementation plan
+   - [ ] **Mark ticket as "In Progress" in Linear**
 
 2. **Setup** 🔧
    - [ ] Create feature branch
@@ -754,7 +761,11 @@ For every Linear ticket, Claude should:
    - [ ] Conventional commit
    - [ ] Push branch
    - [ ] Create GitHub PR (include Linear ticket ID)
-   - [ ] Update Linear ticket to "In Review" (with PR link)
+   - [ ] Add Linear comment with PR link
+
+7. **Complete** ✅
+   - [ ] After PR approval and merge
+   - [ ] **Mark ticket as "Completed" in Linear**
 
 ---
 

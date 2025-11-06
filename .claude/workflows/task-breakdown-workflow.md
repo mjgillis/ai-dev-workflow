@@ -315,19 +315,19 @@ Estimate: 5 points 
 
 ```
 PROJ-1: Database Schema
-  “
+  ï¿½
 PROJ-2: Usage API Endpoint
-  “
+  ï¿½
 PROJ-4: Usage Dashboard UI
-  “
+  ï¿½
 PROJ-6: End-to-End Tests
 
 PROJ-3: Alert API Endpoint (parallel track)
-  “
+  ï¿½
 PROJ-5: Alert UI (parallel track)
 
-Critical Path: PROJ-1 ’ PROJ-2 ’ PROJ-4 ’ PROJ-6
-Parallel Track: PROJ-3 ’ PROJ-5
+Critical Path: PROJ-1 ï¿½ PROJ-2 ï¿½ PROJ-4 ï¿½ PROJ-6
+Parallel Track: PROJ-3 ï¿½ PROJ-5
 ```
 
 **Dependencies types:**
@@ -416,7 +416,7 @@ Total: 16 points
 **Claude will warn:**
 
 ```
-   Sprint 1 has PROJ-2 and PROJ-3, but PROJ-2 depends on PROJ-1.
+ï¿½  Sprint 1 has PROJ-2 and PROJ-3, but PROJ-2 depends on PROJ-1.
 Recommendation: Ensure PROJ-1 completes in first week so PROJ-2 can start.
 
  Sprint 2 looks balanced
@@ -554,26 +554,9 @@ linear issue create \
   --project "Usage Dashboard"
 ```
 
-Option 2: Use Linear API (if CLI not available)
+Option 2: Use Linear MCP
 
-```python
-import requests
-
-ticket = {
-  "title": "feat: Implement GET /api/v1/usage endpoint (API)",
-  "description": ticket_description,
-  "priority": 1,
-  "estimate": 5,
-  "labelIds": [feature_label_id, api_label_id],
-  "projectId": project_id
-}
-
-response = requests.post(
-  "https://api.linear.app/graphql",
-  headers={"Authorization": f"Bearer {api_key}"},
-  json={"query": create_issue_mutation, "variables": ticket}
-)
-```
+Claude can use Linear MCP (Model Context Protocol) to create tickets directly through the MCP integration.
 
 Option 3: Manual creation (Claude provides formatted description to paste)
 
@@ -583,7 +566,7 @@ Option 3: Manual creation (Claude provides formatted description to paste)
 I've created 9 ticket descriptions. Here are options for creating them in Linear:
 
 1. Use Linear CLI (recommended): I can generate bash commands
-2. Use Linear API: I can generate Python script
+2. Use Linear MCP: I can create tickets directly through MCP integration
 3. Manual: Copy-paste each description into Linear web UI
 
 Which would you prefer?
@@ -610,13 +593,13 @@ Which would you prefer?
 ```
 Completeness Check:
 
- PRD User Stories: 3 ’ Tickets created: 9 (stories split for sizing)
- TDD Sections: 8 ’ All referenced in tickets
+ PRD User Stories: 3 ï¿½ Tickets created: 9 (stories split for sizing)
+ TDD Sections: 8 ï¿½ All referenced in tickets
  Acceptance Criteria: All tickets have 4-8 criteria
  Estimates: All tickets sized (1-8 points)
  Dependencies: 6 dependencies documented
  Sprint Capacity: 18, 18, 16 vs capacity 20 
- Critical Path: PROJ-1 ’ PROJ-2 ’ PROJ-4 ’ PROJ-6
+ Critical Path: PROJ-1 ï¿½ PROJ-2 ï¿½ PROJ-4 ï¿½ PROJ-6
 ```
 
 #### Step 8.2: Validate Against PRD Goals
