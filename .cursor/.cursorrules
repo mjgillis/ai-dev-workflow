@@ -1,0 +1,133 @@
+# Product Development Workflows for Cursor
+
+This project uses structured workflows for product development with Cursor AI.
+
+---
+
+## Core Principles (P0 - Always Follow)
+
+### 1. Always Ask Clarifying Questions
+When requirements are ambiguous, STOP and ask the user clarifying questions.
+
+### 2. Test-Driven Development (TDD) is Mandatory
+Always write tests BEFORE implementation (Red-Green-Refactor cycle).
+
+### 3. Document Everything with Traceability
+Maintain chain: Code → Ticket → TDD → PRD
+Always include version: "TDD v2.1 Section 4.1" (not just "Section 4.1")
+
+### 4. Update Documents as You Learn
+PRD, TDD, and task breakdowns are LIVING DOCUMENTS. Update and version them.
+
+### 5. Manage Linear Ticket Status
+```
+Todo → In Progress (when start) → Completed (after PR merge)
+```
+
+### 6. Follow Git Workflow Standards
+- Branch: `feature/TICKET-ID-description`
+- Commits: Conventional format (`feat:`, `fix:`, etc.)
+- PR: Include ticket ID, link to Linear
+
+### 7. Definition of Done (Universal)
+- [ ] Tests passing (>80% coverage)
+- [ ] No linter warnings
+- [ ] Documentation updated
+- [ ] Code reviewed
+- [ ] PR merged
+- [ ] Ticket completed
+
+### 8. Right-Size All Work
+Max 13 story points per ticket. Break down larger work.
+
+---
+
+## How to Invoke Workflows in Cursor
+
+When the user mentions a workflow, read the corresponding file from `.cursor/workflows/` and follow it step-by-step.
+
+### Workflow Commands
+
+| User Says | Read This File | Purpose |
+|-----------|----------------|---------|
+| "Create PRD using prd-creation-workflow" | `.cursor/workflows/prd-creation-workflow.md` | Define WHAT & WHY |
+| "Create TDD using tdd-creation-workflow" | `.cursor/workflows/tdd-creation-workflow.md` | Design HOW |
+| "Break down using task-breakdown-workflow" | `.cursor/workflows/task-breakdown-workflow.md` | Create TICKETS |
+| "Implement ticket [ID] using linear-ticket-workflow" | `.cursor/workflows/linear-ticket-workflow.md` | Build FEATURE |
+
+### How to Reference Files in Cursor
+
+Use `@filename` syntax to reference workflow files:
+- `@.cursor/workflows/prd-creation-workflow.md`
+- `@.cursor/workflows/tdd-creation-workflow.md`
+- `@.cursor/reference/quick-reference.md`
+
+### Quick Reference
+
+For cheat sheet, reference: `@.cursor/reference/quick-reference.md`
+
+---
+
+## Decision Tree
+
+```
+Idea → PRD → TDD → Tickets → Implementation
+  ↓       ↓      ↓       ↓           ↓
+  1       2      3       4           5
+```
+
+---
+
+## Tools
+
+- **Linear** - Update ticket status, create tickets (use Linear integration or API)
+- **GitHub CLI** - Create PRs with `gh pr create`
+- **Cursor Composer** - Use Cmd+I for multi-file edits
+- **Cursor Chat** - Use Cmd+L for questions and guidance
+
+---
+
+## Document Versioning
+
+PRD and TDD use semantic versioning: MAJOR.MINOR.PATCH
+
+Always reference version in tickets:
+- ✅ "See TDD v2.1 Section 4.1"
+- ❌ "See TDD Section 4.1"
+
+---
+
+## File Locations
+
+- Workflows: `.cursor/workflows/*.md`
+- Templates: `.cursor/reference/*-template.md`
+- Quick Ref: `.cursor/reference/quick-reference.md`
+- ADR Template: `.cursor/reference/adr-template.md`
+
+---
+
+## Cursor-Specific Commands
+
+### Using Cursor Chat (Cmd+L)
+```
+"Create a PRD for [feature] using the prd-creation-workflow"
+"Help me implement ticket PROJ-42 using the linear-ticket-workflow"
+```
+
+### Using Cursor Composer (Cmd+I)
+When implementing across multiple files, use Composer with workflow context:
+```
+"Implement the API endpoint from TDD v2.1 Section 4.1 using the linear-ticket-workflow"
+```
+
+### Reference Workflows Mid-Conversation
+```
+"Following the tdd-creation-workflow, let's design the architecture"
+"According to the prd-creation-workflow, what questions should we ask?"
+```
+
+---
+
+**Version:** 1.0
+**Last Updated:** 2025-11-06
+**Adapted for:** Cursor IDE

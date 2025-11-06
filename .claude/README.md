@@ -20,9 +20,11 @@ Located in [`/workflows`](workflows/):
 
 Located in [`/reference`](reference/):
 
-1. **[prd-template-1pager.md](reference/prd-template-1pager.md)** - Simple but comprehensive PRD template
+1. **[prd-template.md](reference/prd-template.md)** - Simple but comprehensive PRD template
 2. **[tdd-template.md](reference/tdd-template.md)** - Technical design document template
 3. **[task-breakdown-template.md](reference/task-breakdown-template.md)** - Task breakdown and sprint planning template
+4. **[adr-template.md](reference/adr-template.md)** - Architecture decision record template
+5. **[quick-reference.md](reference/quick-reference.md)** - One-page cheat sheet for quick lookups
 
 ---
 
@@ -475,7 +477,9 @@ Try this complete flow on a small feature:
 
 - Read [product-development-workflow.md](workflows/product-development-workflow.md) for full details
 - Customize `.claude/instructions.md` with your project-specific rules
-- See [quick-reference.md](reference/quick-reference.md) for cheat sheet
+- See [quick-reference.md](reference/quick-reference.md) for one-page cheat sheet
+  - Use for quick lookups, onboarding, or print as reference card
+  - Not a replacement for detailed workflows
 
 ---
 
