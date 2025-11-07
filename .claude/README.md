@@ -34,7 +34,7 @@ Located in [`/reference`](reference/):
 
 ```bash
 # Copy the .claude folder to your project
-cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
+cp -r /path/to/ai-dev-workflow/.claude /path/to/your-project/
 
 # That's it! Claude Code will automatically load the instructions
 ```
@@ -85,7 +85,7 @@ Claude: [Implements with TDD approach]
 
 1. **Copy the `.claude` folder to your project:**
    ```bash
-   cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
+   cp -r /path/to/ai-dev-workflow/.claude /path/to/your-project/
    ```
 
 2. **Start using workflows:**
@@ -445,7 +445,7 @@ To suggest changes:
 
 1. **Copy .claude folder to your project:**
    ```bash
-   cp -r /path/to/claude-dev-workflow/.claude /path/to/your-project/
+   cp -r /path/to/ai-dev-workflow/.claude /path/to/your-project/
    ```
 
 2. **Open your project in Claude Code**

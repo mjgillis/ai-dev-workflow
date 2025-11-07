@@ -23,18 +23,18 @@ This is the same comprehensive workflow system, adapted for Cursor IDE:
 
 ```bash
 # In your project directory
-cp /path/to/claude-dev-workflow/.cursor/.cursorrules .cursorrules
+cp /path/to/ai-dev-workflow/.cursor/.cursorrules .cursorrules
 
 # Copy workflows for reference
-cp -r /path/to/claude-dev-workflow/.cursor/workflows .cursor/workflows
-cp -r /path/to/claude-dev-workflow/.cursor/reference .cursor/reference
+cp -r /path/to/ai-dev-workflow/.cursor/workflows .cursor/workflows
+cp -r /path/to/ai-dev-workflow/.cursor/reference .cursor/reference
 ```
 
 **Option 2: Copy Entire .cursor Folder**
 
 ```bash
 # Copy the whole .cursor folder to your project
-cp -r /path/to/claude-dev-workflow/.cursor /path/to/your-project/
+cp -r /path/to/ai-dev-workflow/.cursor /path/to/your-project/
 
 # Then copy .cursorrules to root
 cp .cursor/.cursorrules .cursorrules
@@ -257,12 +257,12 @@ As you code, Cursor's autocomplete will respect the workflow principles (TDD, na
 
 1. **Copy .cursorrules to your project:**
    ```bash
-   cp /path/to/claude-dev-workflow/.cursor/.cursorrules /path/to/your-project/.cursorrules
+   cp /path/to/ai-dev-workflow/.cursor/.cursorrules /path/to/your-project/.cursorrules
    ```
 
 2. **Copy workflows for reference:**
    ```bash
-   cp -r /path/to/claude-dev-workflow/.cursor /path/to/your-project/.cursor
+   cp -r /path/to/ai-dev-workflow/.cursor /path/to/your-project/.cursor
    ```
 
 3. **Open Cursor in your project**
