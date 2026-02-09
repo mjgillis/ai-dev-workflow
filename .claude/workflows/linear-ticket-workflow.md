@@ -305,7 +305,8 @@ Acceptance Criteria Validation:
 #### Code Quality
 
 - [ ] Code reviewed (by Claude, or ask user to review)
-- [ ] No linter warnings: `ruff check src/`
+- [ ] No linter warnings: `ruff check src/ tests/`
+- [ ] Code formatted: `ruff format --check src/ tests/`
 - [ ] Type hints present: `mypy src/`
 - [ ] Tests passing: `pytest`
 - [ ] Code coverage >80%: `pytest --cov=src --cov-report=term`
@@ -328,15 +329,16 @@ Acceptance Criteria Validation:
 
 ```bash
 # Linting
-ruff check src/
+ruff check src/ tests/
+
+# Formatting check
+ruff format --check src/ tests/
 
 # Type checking
 mypy src/
 
 # Tests with coverage
 pytest --cov=src --cov-report=term-missing
-
-# Show coverage report
 ```
 
 ---
@@ -470,7 +472,8 @@ Closes ACME-5
 ## Testing
 - ✅ All tests passing (pytest)
 - ✅ Code coverage: 95%
-- ✅ No linter warnings
+- ✅ No linter warnings (ruff check)
+- ✅ Code formatted (ruff format)
 - ✅ Type checking passes
 
 ## Acceptance Criteria
@@ -482,7 +485,7 @@ Closes ACME-5
 ## Definition of Done
 - [x] Code reviewed
 - [x] Tests passing with >80% coverage
-- [x] No linter warnings
+- [x] No linter warnings (ruff check + ruff format)
 - [x] Documentation updated
 EOF
 )" \
